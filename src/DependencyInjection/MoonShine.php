@@ -22,7 +22,7 @@ final class MoonShine extends Core
 
     public static function UIPath(string $path = ''): string
     {
-        return base_path('/vendor/moonshine/ui/' . $path);
+        return base_path('/vendor/moonshine/ui' . $path);
     }
 
     public function runningUnitTests(): bool
