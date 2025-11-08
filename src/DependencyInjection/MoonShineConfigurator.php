@@ -8,10 +8,11 @@ use Closure;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use MoonShine\ColorManager\Palettes\PurplePalette;
 use MoonShine\Contracts\Core\DependencyInjection\ConfiguratorContract;
 use MoonShine\Contracts\Core\PageContract;
 use MoonShine\Contracts\UI\FormBuilderContract;
-use MoonShine\UI\AbstractLayout;
+use MoonShine\Crud\Layouts\AbstractLayout;
 
 final class MoonShineConfigurator implements ConfiguratorContract
 {
@@ -182,5 +183,19 @@ final class MoonShineConfigurator implements ConfiguratorContract
     public function offsetUnset(mixed $offset): void
     {
         $this->set($offset, null);
+    }
+
+    public function getNamespace(string $path = '', ?string $base = null): string
+    {
+        $base ??= $this->get('namespace');
+
+        $path = str_replace('/', '\\', $path);
+
+        return $base . '\\' . trim($path, '\\');
+    }
+
+    public function getPalette(): string
+    {
+        return $this->get('palette', PurplePalette::class);
     }
 }
